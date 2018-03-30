@@ -8,7 +8,7 @@
                     <div id="vue-frame" @click="showFrame = !showFrame;">
                       <vue-frame  v-on:submit.prevent class="click-to-upload text-center line-eft-right" text="Click to upload company logo" :url="'http://staging.fooduniverse.com/Image-Upload-CompanyLogo.cfm?ZScopeDesc1=Companies&ZPKID=' + companyaddress.companyid" frame="myframe" type="a"></vue-frame>
                       <br />
-                      <iframe class="upload-iframe" id="myframe" width="80%" height="100px" :hidden="!showFrame"></iframe>
+                      <iframe scrolling="no" class="upload-iframe" id="myframe" width="80%" height="100px" :hidden="!showFrame"></iframe>
                     </div>
 
                   </div>

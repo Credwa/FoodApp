@@ -35,4 +35,16 @@ export default {
   align-items: center;
 }
 
+.new-logo {
+  width: 100%;
+  min-width: 100px;
+  padding: 0;
+  overflow: hidden;
+  display: inline-block;
+  background: url(/assets/img/FoodUniverse_Symbol_Standby.png) center no-repeat;
+  background-image: url(/assets/img/FoodUniverse_Symbol_Standby.svg), none;
+  background-size: contain;
+  content: "";
+  padding-top: 30%; }
+
 </style>

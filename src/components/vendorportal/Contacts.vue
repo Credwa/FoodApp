@@ -49,12 +49,13 @@
 					<div class="grid-x grid-padding-x">
 						<div class="cell small-12 large-10 large-offset-1" id="toggle-all">
 							<p class="text-center title h3">Edit Contact Info</p>
+							                  <a :href="'http://staging.fooduniverse.com/image-Upload-Contact.cfm?ZScopeDesc1=Contacts&ZPKID=' + contact.contactid" target="img">test</a>
 							    <div class="center-pic-upload">
                     <img class="click-to-upload text-center line-eft-right" v-if="contact.imagefilepath" :src="contact.imagefilepath" height="30px" width="250px" alt="Click to upload contact picture"/>
                     <div id="vue-frame" @click="showFrame = !showFrame">
                       <vue-frame v-on:submit.prevent class="click-to-upload text-center line-eft-right" text="Click to upload contact picture" :url="'http://staging.fooduniverse.com/image-Upload-Contact.cfm?ZScopeDesc1=Contacts&ZPKID=' + contact.contactid" frame="myframe" type="a"></vue-frame>
                       <br />
-                      <iframe class="upload-iframe" id="myframe" width="80%" height="100px" :hidden="!showFrame"></iframe>
+                      <iframe scrolling="no" class="upload-iframe" id="myframe" width="80%" height="100px" :hidden="!showFrame"></iframe>
                     </div>
                   </div>
 

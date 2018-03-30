@@ -80,7 +80,7 @@
                                     <div id="vue-frame" @click="showFrame = !showFrame">
                                     <vue-frame v-on:submit.prevent class="click-to-upload text-center line-eft-right" text="Click to upload product picture" :url="'http://staging.fooduniverse.com/image-Upload-FoodItem.cfm?ZScopeDesc1=FoodItems&ZPKID=' + product.fooditemid" frame="myframe" type="a"></vue-frame>
                                     <br />
-                                    <iframe class="upload-iframe" id="myframe" width="80%" height="100px" :hidden="!showFrame"></iframe>
+                                    <iframe scrolling="no" class="upload-iframe" id="myframe" width="80%" height="100px" :hidden="!showFrame"></iframe>
                                     </div>
                                 </div>
                                 <div class="grid-x grid-margin-x">

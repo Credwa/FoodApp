@@ -47,12 +47,13 @@
 					<div class="grid-x grid-padding-x">
 						<div class="cell small-12 large-11 block-center" id="toggle-all">
 							<p class="text-center title h3">Edit Brand Info</p>
+              		<a :href="'http://staging.fooduniverse.com/image-Upload-Brand.cfm?ZScopeDesc1=Brands&ZPKID=' + brand.brandid">test</a>
                   <div class="center-pic-upload">
                     <img class="click-to-upload text-center line-eft-right" v-if="brand.imagefilepath" :src="brand.imagefilepath" height="30px" width="250px" alt="Click to upload contact picture"/>
                     <div id="vue-frame" @click="showFrame = !showFrame">
                       <vue-frame v-on:submit.prevent class="click-to-upload text-center line-eft-right" text="Click to upload brand logo" :url="'http://staging.fooduniverse.com/image-Upload-Brand.cfm?ZScopeDesc1=Brands&ZPKID=' + brand.brandid" frame="myframe" type="a"></vue-frame>
                       <br />
-                      <iframe class="upload-iframe" id="myframe" width="80%" height="100px" :hidden="!showFrame"></iframe>
+                      <iframe scrolling="no" class="upload-iframe" id="myframe" width="80%" height="100px" :hidden="!showFrame"></iframe>
                     </div>
                   </div>
 							<div class="grid-x grid-margin-x">
