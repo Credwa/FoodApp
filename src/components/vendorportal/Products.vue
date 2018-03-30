@@ -84,9 +84,33 @@
                                     </div>
                                 </div>
                                 <div class="grid-x grid-margin-x">
+                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Food Class Description</div>
+                                    <div class="cell small-12 smedium-10 medium-10">
+                                        <input type="text" name="vendordesc1" v-model="product.foodclassdesc1" />
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">UPC_No</div>
+                                    <div class="cell small-12 smedium-10 medium-10">
+                                        <input type="text" name="vendordesc1" v-model="product.upc_no" />
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Vendor Ref No</div>
+                                    <div class="cell small-12 smedium-10 medium-10">
+                                        <input type="text" name="vendordesc1" v-model="product.vendorrefno" />
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Food Item Description</div>
+                                    <div class="cell small-12 smedium-10 medium-10">
+                                        <input type="text" name="vendordesc1" v-model="product.desc1" />
+                                    </div>
+                                </div>
+                                <div class="grid-x grid-margin-x">
                                     <div class="cell small-12 smedium-2 medium-2 user-info-label">Description</div>
                                     <div class="cell small-12 smedium-10 medium-10">
-                                        <input type="text" name="ZDesc1" v-model="product.e" />
+                                        <input type="text" name="ZDesc1" v-model="product.fooditemdesc1" />
                                     </div>
                                 </div>
                                <div class="grid-x grid-margin-x">
@@ -108,11 +132,11 @@
                                     </div>
                                 </div>
                                 <div class="grid-x grid-margin-x small-3">
-                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Unit Cost</div>
+                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Drop Ship Price</div>
                                     <div class="cell small-12 smedium-4 medium-4">
                                         <input type="text" name="unitcost" v-model="product.unitcost" />
                                     </div>
-                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Unit Price</div>
+                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Retail Price</div>
                                     <div class="cell small-12 smedium-4 medium-4">
                                         <input type="text" name="unitprice" v-model="product.unitprice" />
                                     </div>
@@ -177,24 +201,6 @@
                                     <div class="cell small-12 smedium-2 medium-2 user-info-label">Score</div>
                                     <div class="cell small-12 smedium-10 medium-10">
                                         <input type="text" name="abbscore" v-model="product.abbscore" />
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x">
-                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">UPC_No</div>
-                                    <div class="cell small-12 smedium-10 medium-10">
-                                        <input type="text" name="vendordesc1" v-model="product.upc_no" />
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x">
-                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Vendor Ref No</div>
-                                    <div class="cell small-12 smedium-10 medium-10">
-                                        <input type="text" name="vendordesc1" v-model="product.vendorrefno" />
-                                    </div>
-                                </div>
-                                <div class="grid-x grid-margin-x">
-                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Food Class Description</div>
-                                    <div class="cell small-12 smedium-10 medium-10">
-                                        <input type="text" name="vendordesc1" v-model="product.foodclassdesc1" />
                                     </div>
                                 </div>
                                 <div class="grid-x grid-margin-x">
@@ -286,6 +292,7 @@ export default {
           config1
         })
         .then(response => {
+            console.log('Fooditem list', response.data.items)
           this.products = response.data.items;
           if (this.products) {
             if (this.products.length > 0) {
@@ -465,7 +472,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #edit-billing-address {
-  width: 800px;
+  width: 80vw;
 }
 .reveal-overlay::-webkit-scrollbar {
   display: none;

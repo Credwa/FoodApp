@@ -45,6 +45,6 @@ export default {
   background-image: url(/assets/img/FoodUniverse_Symbol_Standby.svg), none;
   background-size: contain;
   content: "";
-  padding-top: 30%; }
+  padding-top: 40%; }
 
 </style>

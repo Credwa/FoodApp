@@ -1,7 +1,7 @@
 <template>
     <div>
         <VendorPortalHeader :search="search"></VendorPortalHeader>
-        <div class="grid-container">
+        <!-- breadcrumbs <div class="grid-container">
             <div class="grid-x grid-padding-x">
                 <div class="cell small-12">
                     <nav aria-label="You are here:" role="navigation">
@@ -22,7 +22,7 @@
                     </nav>
                 </div>
             </div>
-        </div>
+        </div> -->
         <header id="account-header">
             <div class="grid-container">
                 <div class="grid-x grid-padding-x">
