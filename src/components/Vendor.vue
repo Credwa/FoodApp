@@ -50,7 +50,7 @@
                 <h2>{{Vendor.vendormessagetitletext}}</h2>
                 <h4 class="line-bottom subtitle cursive">{{Vendor.vendormessagedisplaytextdesc1}}</h4>
               </div>
-              <p{{Vendor.vendormessagedesc1}}</p>
+              <p>{{Vendor.vendormessagedesc1}}</p>
             </div>
           </div>
         </div>

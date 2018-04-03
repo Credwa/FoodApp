@@ -1,29 +1,35 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
         srhtext: '',
-        ZNavKey: ''
+        ZNavKey: '',
+        currentUser: '',
     },
     mutations: {
         setSrhtext(state, newValue) {
             //if (this.debug) console.log('setMessageAction triggered with', newValue)
-            state.srhtext = newValue
+            state.srhtext = newValue;
         },
         clearSrhtext() {
             //if (this.debug) console.log('clearMessageAction triggered')
-            state.srhtext = ''
+            state.srhtext = '';
         },
         setZNavKey(state, newValue) {
-            state.ZNavKey = newValue
+            state.ZNavKey = newValue;
         },
         clearZNavKey() {
             //if (this.debug) console.log('clearMessageAction triggered')
-            state.ZNavKey = ''
+            state.ZNavKey = '';
         },
+        setCurrentUser(state, newUser) {
+            state.currentUser = newUser;
+        }
+    },
+    getters: {
+        getZNavKey: state => state.ZNavKey
     }
-
-})
-export default store
+});
+export default store;

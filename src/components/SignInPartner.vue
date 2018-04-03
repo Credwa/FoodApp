@@ -12,7 +12,7 @@
                                 <div class="cell small-9 msmall-8 medium-7">
                                     <router-link :to="'/'" id="logo-link">
                                         <span class="show-for-sr" aria-hidden="true">Food Universe</span>
-                                        <span class="logo"></span>
+                                        <span class="new-logo"></span>
                                     </router-link>
                                 </div>
                                 <div class="cell smedium-10">
@@ -54,118 +54,123 @@
 // Library components.
 import axios from 'axios';
 // import { mapMutations } from 'vuex'
-import router from '../router'
-import CommonFooter from './CommonFooter.vue'
+import router from '../router';
+import CommonFooter from './CommonFooter.vue';
 
 export default {
-    name: 'SignInPartner',
-    data() {
-        return {
-            ZEmailAddress: '',
-            ZUserPassword: '',
-            loading: false,
-            token: '',
-            rememberme: false
-        }
-    },
-    created() {
-        //do something after creating vue instance
-    },
-    components: {
-        CommonFooter
-    },
-    mounted: function() {
-        // this.srhtext = this.$store.state.srhtext
-    },
-    methods: {
-        submit(e) {
-            if (this.ZEmailAddress == "" || this.ZUserPassword == "") {
-                this.$toastr.Add({
-                    title: "Tip", // Toast Title
-                    msg: "Please fill all the fields.", // Message
-                    position: "toast-top-center", // Toast Position.
-                    type: "info", // Toast type,
-                    preventDuplicates: true //Default is false
-                });
-                // this.log = "Preencha o campo para login.";
-                event.preventDefault();
+  name: 'SignInPartner',
+  data() {
+    return {
+      ZEmailAddress: '',
+      ZUserPassword: '',
+      loading: false,
+      token: '',
+      rememberme: false
+    };
+  },
+  created() {
+    //do something after creating vue instance
+  },
+  components: {
+    CommonFooter
+  },
+  mounted: function() {
+    // this.srhtext = this.$store.state.srhtext
+  },
+  methods: {
+    submit(e) {
+      if (this.ZEmailAddress == '' || this.ZUserPassword == '') {
+        this.$toastr.Add({
+          title: 'Tip', // Toast Title
+          msg: 'Please fill all the fields.', // Message
+          position: 'toast-top-center', // Toast Position.
+          type: 'info', // Toast type,
+          preventDuplicates: true //Default is false
+        });
+        // this.log = "Preencha o campo para login.";
+        event.preventDefault();
+      } else {
+        var config = {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        };
+
+        var data_array = {
+          ZEmailAddress: this.ZEmailAddress,
+          ZUserPassword: this.ZUserPassword
+        };
+
+        axios({
+          method: 'post',
+          url: process.env.API_URL + '/Evaluate-Partner-Login',
+          data: data_array,
+          config
+        })
+          .then(response => {
+            var item = response.data.item;
+            console.log('signinparnter', response);
+            if (item) {
+              // Set navkey from response
+              this.$store.commit('setZNavKey', item.navkey);
+              this.$store.commit('setCurrentUser', this.ZEmailAddress);
+              localStorage.setItem('ZNavKey', item.navkey);
+
+              this.$toastr.Add({
+                title: 'Success', // Toast Title
+                msg: 'Logged in as partner successfully', // Message
+                position: 'toast-top-center', // Toast Position.
+                type: 'success', // Toast type,
+                preventDuplicates: true //Default is false
+              });
+              if (this.ZEmailAddress === this.ZUserPassword) {
+                router.push({ path: '/changePasswordPartner' });
+              } else {
+                router.push({ path: '/vendorportal' });
+              }
             } else {
-                var config = {
-                    headers: {
-                        'Content-Type': "application/json",
-                    }
-                };
-
-                var data_array = {
-                    ZEmailAddress: this.ZEmailAddress,
-                    ZUserPassword: this.ZUserPassword
-                };
-
-                axios({
-                    method: 'post',
-                    url: process.env.API_URL + '/Evaluate-Partner-Login',
-                    data: data_array,
-                    config
-                }).then(response => {
-                    var item = response.data.item;
-                    console.log('signinparnter', response)
-                    if (item) {
-                        // Set navkey from response
-                        this.$store.commit('setZNavKey', item.navkey);
-                        localStorage.setItem('ZNavKey', item.navkey)
-
-                        this.$toastr.Add({
-                            title: "Success", // Toast Title
-                            msg: "Logged in as partner successfully", // Message
-                            position: "toast-top-center", // Toast Position.
-                            type: "success", // Toast type,
-                            preventDuplicates: true //Default is false
-                        });
-                        router.push({ path: '/vendorportal' });
-                    } else {
-                        this.$toastr.Add({
-                            title: "Error", // Toast Title
-                            msg: "Failed Partner Login", // Message
-                            position: "toast-top-center", // Toast Position.
-                            type: "warning", // Toast type,
-                            preventDuplicates: true //Default is false
-                        });
-                    }
-
-                    //Get Token
-
-                })
-                    .catch(e => {
-                        this.$toastr.Add({
-                            title: "Error", // Toast Title
-                            msg: "Failed Login", // Message
-                            position: "toast-top-center", // Toast Position.
-                            type: "warning", // Toast type,
-                            preventDuplicates: true //Default is false
-                        });
-                        console.log(e)
-                    })
+              this.$toastr.Add({
+                title: 'Error', // Toast Title
+                msg: 'Failed Partner Login', // Message
+                position: 'toast-top-center', // Toast Position.
+                type: 'warning', // Toast type,
+                preventDuplicates: true //Default is false
+              });
             }
-        },
+
+            //Get Token
+          })
+          .catch(e => {
+            this.$toastr.Add({
+              title: 'Error', // Toast Title
+              msg: 'Failed Login', // Message
+              position: 'toast-top-center', // Toast Position.
+              type: 'warning', // Toast type,
+              preventDuplicates: true //Default is false
+            });
+            console.log(e);
+          });
+      }
     }
-}
+  }
+};
 </script>
 <style scoped>
 #main-nav .grid-x {
-    background-position: center 100px;
-    background-repeat: no-repeat;
+  background-position: center 100px;
+  background-repeat: no-repeat;
 }
 
 #sign-in {
-    height: 70vh;
+  height: 70vh;
 }
 
 .remodal-footer {
-    background-color: #7DBE00;
-    height: 30vh;
-    margin-top: 0;
-    padding-top: 0;
-    bottom: 0;
-    position: relative;
+  background-color: #7dbe00;
+  height: 30vh;
+  margin-top: 0;
+  padding-top: 0;
+  bottom: 0;
+  position: relative;
 }
 </style>

@@ -191,7 +191,7 @@ export default {
           }).then((response) => {
             this.loading = false
             this.items = response.data.Items
-            
+
             this.filter()
 
           }, (error) => {
@@ -209,7 +209,7 @@ export default {
 
     },
     filter(){
-      
+
       if(this.counterperpage == 0)
       {
         //if All is selected
@@ -221,7 +221,7 @@ export default {
         this.pagination_visible = true;
       }
       this.pagecount = Math.round((this.items.length + 1) / this.counterperpage)
-      
+
     },
     setpagenum: function (pagenum) {
       this.currentpage = pagenum

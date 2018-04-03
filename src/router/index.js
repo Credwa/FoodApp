@@ -12,6 +12,7 @@ import SignIn from '../components/SignIn.vue'
 import SignUp from '../components/SignUp.vue'
 import ForgotPassword from '../components/ForgotPassword.vue'
 import SignInPartner from '../components/SignInPartner.vue'
+import ChangePasswordPartner from '../components/ChangePasswordPartner.vue'
 import SignUpPartner from '../components/SignUpPartner.vue'
 import VendorPortal from '../components/VendorPortal.vue'
 
@@ -101,6 +102,12 @@ const router = new Router({
             path: '/signupPartner',
             name: 'SignUpPartner',
             component: SignUpPartner,
+            meta: { title: 'Sign Up | FoodUniverse' }
+        },
+        {
+            path: '/changePasswordPartner',
+            name: 'changePasswordPartner',
+            component: ChangePasswordPartner,
             meta: { title: 'Sign Up | FoodUniverse' }
         },
         {

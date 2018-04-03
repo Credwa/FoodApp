@@ -21,6 +21,7 @@
     "vue-frame": "^1.0.7",
     "vue-l-carousel": "^1.0.1",
     "vue-router": "^3.0.1",
+    "vue-simple-spinner": "^1.2.8",
     "vue-spinner": "^1.0.3",
     "vue-tabs-component": "^1.4.0",
     "vue-tiny-slider": "^0.1.12",

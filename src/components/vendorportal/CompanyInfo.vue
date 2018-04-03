@@ -196,7 +196,7 @@ export default {
           ZStateDesc1: this.companyaddress.statedesc1,
           ZZipCodeDesc1: this.companyaddress.zipcodedesc1,
           ZCountryDesc1: this.companyaddress.country,
-          ZNoteDesc1: this.companyaddress.vendormessagedisplaytextdesc1,
+          ZNoteDesc1: this.companyaddress.vendormessagetitletext,
           ZWebAddress: this.companyaddress.webaddress,
           ZPhoneNumber: this.companyaddress.phonenumber,
           ZEmailAddress: this.companyaddress.emailaddress,
