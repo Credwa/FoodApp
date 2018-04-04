@@ -19,6 +19,10 @@ export default {
   margin-top: 60px;
 } */
 
+input:disabled {
+    background-color: #F5F5F5;
+}
+
 .click-to-upload {
   font-size: 10pt;
   color: green;

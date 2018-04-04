@@ -35,7 +35,8 @@
                                         <div class="card-img cell small-6 smedium-12 medium-12 align-self-top">
                                             <img :src="product.imagefilepath" alt="" />
                                             <button :class="'score-badge '+product.abbdefdesc1.toLowerCase()">{{product.abbscore}} </button>
-                                            <button class="button secondary button-add-cart show-for-smedium">Edit</button>
+                                            <button class="button secondary button-add-cart show-for-smedium"><i class="fas fa-search" ></i>Edit</button>
+
                                         </div>
                                         <div class="card-info cell small-6 smedium-12 medium-12">
                                             <div class="ratings">
@@ -46,8 +47,8 @@
                                             <big class="fooditem-name">
                                                 <strong>{{product.desc1}}</strong>
                                             </big>
-                                            <small class="fooditem-units">{{product.priceuomdesc1}}</small>
                                             <span class="h4 fooditem-price">${{product.unitcost?(product.unitcost).toFixed(2):''}}</span>
+                                            <small class="fooditem-units">{{product.priceuomdesc1}}</small>
                                             <button class="button secondary hide-for-smedium">GO</button>
                                         </div>
                                     </div>
@@ -128,7 +129,7 @@
                                     </div>
                                 </div>
                                 <div class="grid-x grid-margin-x">
-                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">List of Attributes (Organic, Wild, Grass-Fed, etc.)</div>
+                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">List of Attributes <br>(Organic, Wild, Grass-Fed, etc.)</div>
                                     <div class="cell small-12 smedium-10 medium-10">
                                         <textarea type="text" name="attributesdescription" v-model="productDetails.attributesdesc1"></textarea>
                                     </div>
@@ -147,8 +148,28 @@
                                         </div>
                                     <div class="cell small-12 smedium-2 medium-2 user-info-label">Retail Price</div>
                                     <div class="cell small-12 smedium-2 medium-2">
-                                        <input type="text" name="unitprice" v-model="productDetails.unitprice" />
+                                        <p>{{productDetails.unitprice}}</p>
                                     </div>
+                                </div>
+                                <div class="grid-x grid-margin-x small-3">
+                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Package Dimensions (inches)</div>
+                                    <div class="cell small-11 smedium-2 medium-2">
+                                        <input type="text" name="HeightQty" v-model="productDetails.heightqty" placeholder="Height"/>
+                                    </div>
+                                    <p style="margin-left:-1%">X</p>
+                                    <div class="cell small-11 smedium-2 medium-2">
+                                        <input type="text" name="WidthQty" v-model="productDetails.widthqty" placeholder="Width"/>
+                                    </div>
+                                    <p style="margin-left:-1%">X</p>
+                                    <div class="cell small-11 smedium-2 medium-2">
+                                        <input type="text" name="LengthQty" v-model="productDetails.lengthqty" placeholder="Length"/>
+                                    </div>
+                                    <p style="margin-left:-1%">X</p>
+                                    <div class="cell small-11 smedium-2 medium-2">
+                                        <input type="text" name="WeightQty" v-model="productDetails.weightqty" placeholder="Weight"/>
+                                    </div>
+                                    <p style="margin-left:-1%">lbs</p>
+
                                 </div>
                                 <div class="grid-x grid-margin-x">
                                     <div class="cell small-12 smedium-2 medium-2 user-info-label">Ingredients</div>
@@ -210,6 +231,15 @@
                                         <input type="text" name="ZCountryOfOriginDesc1" v-model="productDetails.countryoforigindesc1" />
                                     </div>
                                 </div>
+                                <div class="grid-x grid-margin-x">
+                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Status</div>
+                                    <div class="cell small-12 smedium-10 medium-10">
+                                        <select name="ZServingSizeUOMID" v-model="productDetails.statusdefid">
+                                            <option value="">Choose</option>
+                                            <option v-for="status in statusDefIDList" v-bind:key="status.statusdefid" :value="status.statusdefid">{{status.desc1}}</option>
+                                        </select>
+                                    </div>
+                                </div>
 
                                 <p class="text-center">
                                     <button class="button muted" style="min-width:80px" data-close aria-label="Close reveal"><spinner v-if="loading" :size="'20'"></spinner> <span v-else>Update</span></button>
@@ -263,6 +293,7 @@ export default {
       showProductModal: false,
       servingsizeuomlist: [],
       priceUOMIDlist: [],
+      statusDefIDList: [],
       newLoading: false,
       vendor: '',
       showFrame: false
@@ -338,7 +369,7 @@ export default {
           this.servingsizeuomlist = response.data.items;
         });
 
-        // Get LOV-Price-UOMID
+      // Get LOV-Price-UOMID
       axios
         .post(process.env.API_URL + '/LOV-Price-UOMID', {
           ZNavKey: this.VendorZNavKey,
@@ -346,6 +377,15 @@ export default {
         })
         .then(response => {
           this.priceUOMIDlist = response.data.items;
+        });
+
+      // Get Status Def ID
+      axios
+        .post(process.env.API_URL + '/LOV-StatusDefs', {
+          ZScopeDesc1: 'FoodItems'
+        })
+        .then(response => {
+          this.statusDefIDList = response.data.items;
         });
     },
     onupdateproductinfo: function() {
@@ -355,60 +395,69 @@ export default {
         this.onaddProduct();
         return;
       }
-    console.log(this.token);
+      console.log(this.token);
       var config1 = {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'bearer ' + this.token
+          Authorization: 'bearer ' + this.token
         }
       };
 
       axios
-        .post('https://api.fooduniverse.com/service/api/data/doquery/FoodItemPage-FoodItem-Update2', {
-        //   ZFoodClassDesc1: this.productDetails.foodclassdesc1 || '',
-        //   ZUPC_No: this.productDetails.upc_no || '',
-        //   ZVendorRefNo: this.productDetails.vendorrefno || '',
-        //   ZDesc1: this.productDetails.desc1 || '',
-        //   ZBrandDesc1: this.productDetails.branddesc1 || '',
-        //   ZProductDescription: this.productDetails.productdescription || '',
-        //   ZMarketingDescription: this.productDetails.marketingdescription || '',
-        //   ZAttributesDesc1: this.productDetails.attributesdesc1 || '',
-        //   ZUnitCost: this.productDetails.unitcost || '',
-        //   ZUnitPrice: this.productDetails.unitprice || '',
-        //   ZIngredients: this.productDetails.ingredients || '',
-        //   ZFoodItemID: this.product.fooditemid || '',
-        //   ZWarningDesc1: this.productDetails.warningsdesc1 || '',
-        //   ZPackagingSize: this.productDetails.packagingSize || '',
-        //   ZPackagingType: this.productDetails.packagingtype || '',
-        //   ZServingSizeQty: this.product.servingsizeqty |    | '',
-        //   ZServingSizeUOMID: this.uomCurrentSelectedID || '',
-        //   ZServingsPerContainer: this.productDetails.servingspercontainer || '',
-        //   ZRecipeDirections: this.productDetails.recipedirections || '',
-        //   ZCountryOfOriginDesc1:
-        //     this.productDetails.countryoforigindesc1 || 'USA',
-    "ZFoodClassDesc1": this.productDetails.foodclassdesc1,
-    "ZUPC_No": this.productDetails.upc_no,
-    "ZVendorRefNo": this.productDetails.vendorrefno,
-    "ZDesc1": this.productDetails.desc1,
-    "ZBrandDesc1": this.productDetails.branddesc1,
-    "ZProductDescription": this.productDetails.productdescription ,
-    "ZMarketingDescription": this.productDetails.marketingdescription,
-    "ZAttributesDesc1": this.productDetails.attributesdesc1,
-    "ZUnitCost": this.productDetails.unitcost,
-    "ZUnitPrice":  this.productDetails.unitprice,
-    "ZIngredients": this.productDetails.ingredients,
-    "ZFoodItemID":  this.product.fooditemid,
-    "ZWarningsDesc1": this.productDetails.warningsdesc1,
-    "ZPackagingSize": this.productDetails.packagingsize,
-    "ZPackagingType": this.productDetails.packagingtype,
-    "ZServingSizeQty": this.productDetails.servingsizeqty,
-    "ZServingSizeUOMID": this.uomCurrentSelectedID,
-    "ZServingsPerContainer": this.productDetails.servingspercontainer,
-    "ZRecipeDirections": this.productDetails.recipedirections,
-    "ZCountryOfOriginDesc1": this.productDetails.countryoforigindesc1,
-    "ZPriceUOMID": this.productDetails.priceuomid
-        })
+        .post(
+          'https://api.fooduniverse.com/service/api/data/doquery/FoodItemPage-FoodItem-Update3',
+          {
+            //   ZFoodClassDesc1: this.productDetails.foodclassdesc1 || '',
+            //   ZUPC_No: this.productDetails.upc_no || '',
+            //   ZVendorRefNo: this.productDetails.vendorrefno || '',
+            //   ZDesc1: this.productDetails.desc1 || '',
+            //   ZBrandDesc1: this.productDetails.branddesc1 || '',
+            //   ZProductDescription: this.productDetails.productdescription || '',
+            //   ZMarketingDescription: this.productDetails.marketingdescription || '',
+            //   ZAttributesDesc1: this.productDetails.attributesdesc1 || '',
+            //   ZUnitCost: this.productDetails.unitcost || '',
+            //   ZUnitPrice: this.productDetails.unitprice || '',
+            //   ZIngredients: this.productDetails.ingredients || '',
+            //   ZFoodItemID: this.product.fooditemid || '',
+            //   ZWarningDesc1: this.productDetails.warningsdesc1 || '',
+            //   ZPackagingSize: this.productDetails.packagingSize || '',
+            //   ZPackagingType: this.productDetails.packagingtype || '',
+            //   ZServingSizeQty: this.product.servingsizeqty |    | '',
+            //   ZServingSizeUOMID: this.uomCurrentSelectedID || '',
+            //   ZServingsPerContainer: this.productDetails.servingspercontainer || '',
+            //   ZRecipeDirections: this.productDetails.recipedirections || '',
+            //   ZCountryOfOriginDesc1:
+            //     this.productDetails.countryoforigindesc1 || 'USA',
+            ZFoodClassDesc1: this.productDetails.foodclassdesc1,
+            ZUPC_No: this.productDetails.upc_no,
+            ZVendorRefNo: this.productDetails.vendorrefno,
+            ZDesc1: this.productDetails.desc1,
+            ZBrandDesc1: this.productDetails.branddesc1,
+            ZProductDescription: this.productDetails.productdescription,
+            ZMarketingDescription: this.productDetails.marketingdescription,
+            ZAttributesDesc1: this.productDetails.attributesdesc1,
+            ZUnitCost: this.productDetails.unitcost,
+            ZUnitPrice: this.productDetails.unitprice,
+            ZIngredients: this.productDetails.ingredients,
+            ZFoodItemID: this.product.fooditemid,
+            ZWarningsDesc1: this.productDetails.warningsdesc1,
+            ZPackagingSize: this.productDetails.packagingsize,
+            ZPackagingType: this.productDetails.packagingtype,
+            ZServingSizeQty: this.productDetails.servingsizeqty,
+            ZServingSizeUOMID: this.uomCurrentSelectedID,
+            ZServingsPerContainer: this.productDetails.servingspercontainer,
+            ZRecipeDirections: this.productDetails.recipedirections,
+            ZCountryOfOriginDesc1: this.productDetails.countryoforigindesc1,
+            ZPriceUOMID: this.productDetails.priceuomid,
+            ZHeightQty: this.productDetails.heightqty || 0,
+            ZWidthQty: this.productDetails.widthqty || 0,
+            ZLengthQty: this.productDetails.lengthqty || 0,
+            ZWeightQty: this.productDetails.weightqty || 0
+
+          }
+        )
         .then(response => {
+          this.fetch();
           this.loading = false;
           console.log('fooditem update', response);
 
@@ -574,7 +623,18 @@ export default {
   width: 50%;
 }
 
-input:disabled {
-    background-color: #F5F5F5;
+.button-add-cart:before {
+  display: inline-block;
+  width: 0px !important;
+  height: 0px !important;
+  background: none !important;
+  background-size: contain;
+  content: '';
+  margin: 0 !important;
+  vertical-align: middle;
+}
+
+.score-badge {
+    background-image: none !important
 }
 </style>

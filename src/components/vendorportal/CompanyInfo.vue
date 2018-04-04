@@ -20,10 +20,6 @@
                             <label>Company Name</label>
                         </div>
                         <div class="form-floating-label">
-                            <input type="text" name="ZAttentionDesc1" v-model="companyaddress.attentiondesc1" />
-                            <label>Attention</label>
-                        </div>
-                        <div class="form-floating-label">
                             <input type="text" name="ZStreet" required v-model="companyaddress.street" />
                             <label>Street</label>
                         </div>
@@ -58,10 +54,6 @@
                         <div class="form-floating-label">
                             <input type="email" name="ZEmailAddress" required v-model="companyaddress.emailaddress" />
                             <label>Email</label>
-                        </div>
-                        <div class="form-floating-label">
-                            <input type="text" name="ZLogoImageFilePath" v-model="companyaddress.logoimagefilepath" />
-                            <label>Logo Image File</label>
                         </div>
                         <div class="form-floating-label">
                             <textarea name="ZNoteDesc1" v-model="companyaddress.vendormessagetitletext"></textarea>

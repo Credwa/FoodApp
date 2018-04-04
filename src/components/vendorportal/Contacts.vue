@@ -67,7 +67,7 @@
 								<label>Lastname</label>
 							</div>
 							<div class="form-floating-label">
-								<input type="text" name="ZEmailAddress" required v-model="contact.emailaddress" />
+								<input type="text" name="ZEmailAddress" required v-model="contact.emailaddress" disabled/>
 								<label>EmailAddress</label>
 							</div>
 							<div class="form-floating-label">
@@ -89,10 +89,6 @@
 							<div class="form-floating-label">
 								<input type="text" name="ZZipCodeDesc1" v-model="contact.zipcodedesc1" />
 								<label>Zipcode</label>
-							</div>
-							<div class="form-floating-label">
-							<input type="text" name="ZImageFilePath" v-model="contact.imagefilepath" />
-							<label>ImageFile</label>
 							</div>
 							<div class="form-floating-label">
 								<input type="text" name="ZCountryDesc1" v-model="contact.countrydesc1" />

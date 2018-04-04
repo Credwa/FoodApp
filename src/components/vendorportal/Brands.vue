@@ -61,24 +61,6 @@
 									<input type="text" name="ZDesc1" required v-model="brand.desc1" />
 								</div>
 							</div>
-							<div class="grid-x grid-margin-x">
-								<div class="cell small-12 smedium-2 medium-3 user-info-label">Thumbnail Path</div>
-								<div class="cell small-12 smedium-10 medium-9">
-									<input type="text" name="ZThumbnailImageFilePath" v-model="brand.thumbmailimagefilepath" />
-								</div>
-							</div>
-							<div class="grid-x grid-margin-x">
-								<div class="cell small-12 smedium-2 medium-3 user-info-label">Thumbnail Upload</div>
-							</div>
-							<div class="grid-x grid-margin-x">
-								<div class="cell small-12 smedium-2 medium-3 user-info-label">Image Path</div>
-								<div class="cell small-12 smedium-10 medium-9">
-									<input type="text" name="ZImageFilePath" v-model="brand.imagefilepath" />
-								</div>
-							</div>
-							<div class="grid-x grid-margin-x">
-								<div class="cell small-12 smedium-2 medium-3 user-info-label">Image Upload</div>
-							</div>
 							<p class="text-center">
 								<button class="button muted" data-close aria-label="Close reveal">Update</button>
 								<button class="button muted" v-show="brand.brandid" @click="ondelete($event)" aria-label="Close reveal">Delete</button>
