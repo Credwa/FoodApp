@@ -449,10 +449,10 @@ export default {
             ZRecipeDirections: this.productDetails.recipedirections,
             ZCountryOfOriginDesc1: this.productDetails.countryoforigindesc1,
             ZPriceUOMID: this.productDetails.priceuomid,
-            ZHeightQty: this.productDetails.heightqty || 0,
-            ZWidthQty: this.productDetails.widthqty || 0,
-            ZLengthQty: this.productDetails.lengthqty || 0,
-            ZWeightQty: this.productDetails.weightqty || 0
+            ZHeightQty: this.productDetails.heightqty,
+            ZWidthQty: this.productDetails.widthqty,
+            ZLengthQty: this.productDetails.lengthqty,
+            ZWeightQty: this.productDetails.weightqty
 
           }
         )
@@ -566,9 +566,13 @@ export default {
           ZFoodItemID: this.product.fooditemid
         })
         .then(response => {
-          console.log(response);
+          console.log(response.data.item);
           //   this.$set(this.productDetails, this.productDetails, response.data.item);
           this.productDetails = response.data.item;
+          this.productDetails.heightqty = this.productDetails.heightqty === 0 ? null : this.productDetails.heightqty;
+          this.productDetails.widthqty = this.productDetails.widthqty === 0 ? null : this.productDetails.widthqty;
+          this.productDetails.weightqty = this.productDetails.weightqty === 0 ? null : this.productDetails.weightqty
+          this.productDetails.lengthqty = this.productDetails.lengthqty === 0 ? null : this.productDetails.lengthqty
           if (!response.data.HasError) {
           } else {
             this.$toastr.Add({

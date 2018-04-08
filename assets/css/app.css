@@ -12155,6 +12155,42 @@ table.plain th, table.plain td {
   table.plain th:last-child, table.plain td:last-child {
     padding-right: 0; }
 
+.standard-footer {
+  padding: 3em 0 2em; }
+  .standard-footer .copyright {
+    margin: 1em 0 0; }
+
+#footer-links ul {
+  font-size: .75em; }
+  #footer-links ul li {
+    margin-bottom: 0.5em; }
+
+#footer-social a {
+  display: inline-block;
+  margin-right: 1em; }
+  #footer-social a:last-child {
+    margin-right: 0; }
+
+#footer-social .twitter-link {
+  color: #1da1f2; }
+  #footer-social .twitter-link:hover {
+    color: #4db5f5; }
+
+#footer-social .facebook-link {
+  color: #3B5998; }
+  #footer-social .facebook-link:hover {
+    color: #4c70ba; }
+
+#footer-social .pinterest-link {
+  color: #bd081c; }
+  #footer-social .pinterest-link:hover {
+    color: #ee0a23; }
+
+#footer-social .instagram-link {
+  color: #262626; }
+  #footer-social .instagram-link:hover {
+    color: #404040; }
+
 .filter-container {
   position: relative; }
 

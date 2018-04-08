@@ -20,6 +20,7 @@
     "vue-carousel": "^0.6.11",
     "vue-frame": "^1.0.7",
     "vue-l-carousel": "^1.0.1",
+    "vue-pdf": "^3.2.2",
     "vue-router": "^3.0.1",
     "vue-simple-spinner": "^1.2.8",
     "vue-spinner": "^1.0.3",

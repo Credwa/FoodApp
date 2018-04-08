@@ -13,8 +13,10 @@ import SignUp from '../components/SignUp.vue'
 import ForgotPassword from '../components/ForgotPassword.vue'
 import SignInPartner from '../components/SignInPartner.vue'
 import ChangePasswordPartner from '../components/ChangePasswordPartner.vue'
+import Agreement from '../components/Agreement.vue'
 import SignUpPartner from '../components/SignUpPartner.vue'
 import VendorPortal from '../components/VendorPortal.vue'
+import Product from '../components/Product.vue'
 
 Vue.use(Router)
 
@@ -25,6 +27,12 @@ const router = new Router({
             name: 'home',
             component: Home,
             meta: { title: 'FoodUniverse | FoodUniverse' }
+        },
+        {
+            path: '/Product',
+            name: 'product',
+            component: Product,
+            meta: { title: 'Product | FoodUniverse' }
         },
         {
             path: '/SearchResults',
@@ -47,7 +55,7 @@ const router = new Router({
         {
             path: '/fooditem/:ZNavKey',
             name: 'FoodItem',
-            component: FoodItem,
+            component: Product,
             meta: { title: 'FoodItem | FoodUniverse' }
         },
         {
@@ -108,7 +116,13 @@ const router = new Router({
             path: '/changePasswordPartner',
             name: 'changePasswordPartner',
             component: ChangePasswordPartner,
-            meta: { title: 'Sign Up | FoodUniverse' }
+            meta: { title: 'Change Password | FoodUniverse' }
+        },
+        {
+            path: '/agreement',
+            name: 'agreement',
+            component: Agreement,
+            meta: { title: 'Agreement | FoodUniverse' }
         },
         {
             path: '/vendorportal',

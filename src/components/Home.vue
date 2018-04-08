@@ -3,7 +3,7 @@
         <StandardHeader :search="search"></StandardHeader>
         <header class="homepage-marquee grid-x">
       <div class="homepage-slider dark-theme small-12">
-      <div v-for="slide in mainslides" v-bind:key="slide.promopanelslideid" v-if="slide.promopanelslideid !== mainslides[0].promopanelslideid">
+      <div v-for="slide in mainslides" v-bind:key="slide.promopanelslideid" v-if="false">
         <div class="homepage-slide" :style="'background-image:url('+slide.imagefilepath+');'" >
           <div class="grid-container">
             <div class="grid-x">
@@ -23,6 +23,39 @@
                 <h4 class="subtitle cursive line-bottom-left">{{mainslides[0].displaytitletop}}c</h4>
                 <h1>{{mainslides[0].displaytitlemiddle}}</h1>
                 <p><strong>{{mainslides[0].displaytextdesc1}}</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="homepage-slide" :style="'background-image:url('+mainslides[1].imagefilepath+');'">
+          <div class="grid-container">
+            <div class="grid-x">
+              <div class="smedium-8 medium-6 xlarge-4">
+                <h4 class="subtitle cursive line-bottom-left">{{mainslides[1].displaytitletop}}c</h4>
+                <h1>{{mainslides[1].displaytitlemiddle}}</h1>
+                <p><strong>{{mainslides[1].displaytextdesc1}}</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="homepage-slide" :style="'background-image:url('+mainslides[2].imagefilepath+');'">
+          <div class="grid-container">
+            <div class="grid-x">
+              <div class="smedium-8 medium-6 xlarge-4">
+                <h4 class="subtitle cursive line-bottom-left">{{mainslides[2].displaytitletop}}c</h4>
+                <h1>{{mainslides[2].displaytitlemiddle}}</h1>
+                <p><strong>{{mainslides[2].displaytextdesc1}}</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="homepage-slide" :style="'background-image:url('+mainslides[3].imagefilepath+');'">
+          <div class="grid-container">
+            <div class="grid-x">
+              <div class="smedium-8 medium-6 xlarge-4">
+                <h4 class="subtitle cursive line-bottom-left">{{mainslides[3].displaytitletop}}c</h4>
+                <h1>{{mainslides[3].displaytitlemiddle}}</h1>
+                <p><strong>{{mainslides[3].displaytextdesc1}}</strong></p>
               </div>
             </div>
           </div>

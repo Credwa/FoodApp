@@ -6,7 +6,10 @@ export const store = new Vuex.Store({
     state: {
         srhtext: '',
         ZNavKey: '',
-        currentUser: '',
+        currentUser: {
+            username: '',
+            password: ''
+        },
     },
     mutations: {
         setSrhtext(state, newValue) {
@@ -24,8 +27,9 @@ export const store = new Vuex.Store({
             //if (this.debug) console.log('clearMessageAction triggered')
             state.ZNavKey = '';
         },
-        setCurrentUser(state, newUser) {
-            state.currentUser = newUser;
+        setCurrentUser(state, username, password) {
+            state.currentUser.username = username;
+            state.currentUser.password = password;
         }
     },
     getters: {

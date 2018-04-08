@@ -110,10 +110,13 @@ export default {
           .then(response => {
             var item = response.data.item;
             console.log('signinparnter', response);
-            if (item) {
+            if (item.navkey) {
               // Set navkey from response
               this.$store.commit('setZNavKey', item.navkey);
-              this.$store.commit('setCurrentUser', this.ZEmailAddress);
+              this.$store.commit('setCurrentUser', {
+                username: this.ZEmailAddress,
+                password: this.ZUserPassword
+              });
               localStorage.setItem('ZNavKey', item.navkey);
 
               this.$toastr.Add({
@@ -123,15 +126,11 @@ export default {
                 type: 'success', // Toast type,
                 preventDuplicates: true //Default is false
               });
-              if (this.ZEmailAddress === this.ZUserPassword) {
-                router.push({ path: '/changePasswordPartner' });
-              } else {
-                router.push({ path: '/vendorportal' });
-              }
+              router.push({ path: '/agreement' });
             } else {
               this.$toastr.Add({
                 title: 'Error', // Toast Title
-                msg: 'Failed Partner Login', // Message
+                msg: 'Username or password incorrect', // Message
                 position: 'toast-top-center', // Toast Position.
                 type: 'warning', // Toast type,
                 preventDuplicates: true //Default is false

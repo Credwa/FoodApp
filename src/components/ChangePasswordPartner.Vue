@@ -62,7 +62,7 @@ export default {
     name: 'ChangePasswordPartner',
     data() {
         return {
-            ZEmailAddress: this.$store.state.currentUser,
+            ZEmailAddress: this.$store.state.currentUser.username,
             ZUserPassword: '',
             ZConfirmUserPassword: '',
             loading: false,
@@ -113,9 +113,6 @@ export default {
                     var item = response.data.item;
                     console.log('changepasswordpartner', response)
                     if (item) {
-                        // Set navkey from response
-                        this.$store.commit('setZNavKey', item.navkey);
-                        localStorage.setItem('ZNavKey', item.navkey)
 
                         this.$toastr.Add({
                             title: "Success", // Toast Title
