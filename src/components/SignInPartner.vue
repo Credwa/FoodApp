@@ -126,7 +126,18 @@ export default {
                 type: 'success', // Toast type,
                 preventDuplicates: true //Default is false
               });
-              router.push({ path: '/agreement' });
+              if (response.data.item.isagreetoterms) {
+                if (
+                  this.$store.state.currentUser.username ===
+                  this.$store.state.currentUser.password
+                ) {
+                  router.push({ path: '/changePasswordPartner' });
+                } else {
+                  router.push({ path: '/vendorportal' });
+                }
+              } else {
+                router.push({ path: '/agreement' });
+              }
             } else {
               this.$toastr.Add({
                 title: 'Error', // Toast Title

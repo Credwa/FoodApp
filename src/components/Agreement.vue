@@ -100,6 +100,7 @@ export default {
           config
         })
           .then(response => {
+            console.log(response)
             if (
               this.$store.state.currentUser.username ===
               this.$store.state.currentUser.password
