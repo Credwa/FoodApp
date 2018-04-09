@@ -405,7 +405,7 @@ export default {
 
       axios
         .post(
-          'https://api.fooduniverse.com/service/api/data/doquery/FoodItemPage-FoodItem-Update3',
+          'https://api.everythingfood.com/service/api/data/doquery/FoodItemPage-FoodItem-Update3',
           {
             //   ZFoodClassDesc1: this.productDetails.foodclassdesc1 || '',
             //   ZUPC_No: this.productDetails.upc_no || '',

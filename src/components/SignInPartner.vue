@@ -118,7 +118,7 @@ export default {
                 password: this.ZUserPassword
               });
               localStorage.setItem('ZNavKey', item.navkey);
-
+              console.log(this.$store.state.currentUser)
               this.$toastr.Add({
                 title: 'Success', // Toast Title
                 msg: 'Logged in as partner successfully', // Message
@@ -127,6 +127,7 @@ export default {
                 preventDuplicates: true //Default is false
               });
               if (response.data.item.isagreetoterms) {
+                console.log(this.$store.state.currentUser)
                 if (
                   this.$store.state.currentUser.username ===
                   this.$store.state.currentUser.password

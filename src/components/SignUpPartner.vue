@@ -95,7 +95,7 @@ export default {
             ZUserPassword: '',
             ZUserConfirmPassword: '',
             //endpoint: 'https://api.fooduniverse.com/service/api/data/doquery/Onboard-Users-Insert',
-            endpointregister: 'https://api.fooduniverse.com/service/api/account/register',
+            endpointregister: 'https://api.everything.com/service/api/account/register',
             loading: false,
         }
     },

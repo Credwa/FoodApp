@@ -11,7 +11,7 @@
                           <!-- <object class="pdf" width="540" height="350" type="application/pdf" data="/assets/LE-5VendorAgreement.pdf?#zoom=85&scrollbar=0&toolbar=0&navpanes=0" id="pdf_content">
                             <p><a  href="/assets/LE-5VendorAgreement.pdf">Click to open pdf </a></p>
                           </object> -->
-<object data="/assets/LE-5VendorAgreement.pdf" type="application/pdf"  width="540" height="350">
+<object data="/assets/LE-5VendorAgreement.pdf" type="application/pdf" class="pdf" width="740" height="450">
     <embed src="/assets/LE-5VendorAgreement.pdf" type="application/pdf">
         <p>This browser does not support PDFs. Please download the PDF to view it: <a href="/assets/LE-5VendorAgreement.pdf" class="downloadpdf" focus>Download PDF</a>.</p>
     </embed>
@@ -101,6 +101,7 @@ export default {
         })
           .then(response => {
             console.log(response)
+            console.log(this.$store.state.currentUser)
             if (
               this.$store.state.currentUser.username ===
               this.$store.state.currentUser.password
@@ -133,8 +134,12 @@ export default {
 }
 
 #sign-in {
-  height: 80vh;
+  height: 90vh;
 }
+.pdf {
+  margin-left: -15%
+}
+
 .downloadpdf {
   color: red;
 }

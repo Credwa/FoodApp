@@ -27,9 +27,9 @@ export const store = new Vuex.Store({
             //if (this.debug) console.log('clearMessageAction triggered')
             state.ZNavKey = '';
         },
-        setCurrentUser(state, username, password) {
-            state.currentUser.username = username;
-            state.currentUser.password = password;
+        setCurrentUser(state, user) {
+            state.currentUser.username = user.username
+            state.currentUser.password = user.password;
         }
     },
     getters: {

@@ -95,7 +95,7 @@ export default {
             ZUserPassword: '',
             ZUserConfirmPassword: '',
             //endpoint: 'https://api.fooduniverse.com/service/api/data/doquery/Onboard-Users-Insert',
-            endpointregister: 'https://api.fooduniverse.com/service/api/account/register',
+            endpointregister: 'https://api.everythingfood.com/service/api/account/register',
             loading: false,
         }
     },
@@ -200,7 +200,7 @@ export default {
         },
         authenticate: function(provider) {
             console.log('provider', provider);
-            
+
             this.$auth.authenticate(provider).then(function(response) {
                 console.log('response', response)
                 var access_token = response.data.access_token
