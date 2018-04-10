@@ -26,9 +26,9 @@
                     <div class="cell small-12 large-8 large-offset-2 text-center">
                         <div class="section-header">
                             <h2>Our Food Providers</h2>
-                            <h4 class="line-bottom subtitle cursive">Why Sign Up with FoodUniverse</h4>
+                            <h4 class="line-bottom subtitle cursive">Why Sign Up with EverythingFood</h4>
                         </div>
-                        <p>FoodUniverse provides a unique platform to connect discerning consumers with food providers, producing high quality foods. On the platform, food products are scored based on the quality of ingredients, processing methods and nutrition levels. The producers that use the highest quality ingredients and best processing methods that preserve the nutrition levels of the final food product will score highest. High quality food producers all have the same problem: How to communicate that they have the most natural, healthy product grown, raised or processed with care and respect.</p>
+                        <p>EverythingFood provides a unique platform to connect discerning consumers with food providers, producing high quality foods. On the platform, food products are scored based on the quality of ingredients, processing methods and nutrition levels. The producers that use the highest quality ingredients and best processing methods that preserve the nutrition levels of the final food product will score highest. High quality food producers all have the same problem: How to communicate that they have the most natural, healthy product grown, raised or processed with care and respect.</p>
 
                         <p>Our food quality system clearly shows this important differentiation. The consumer selects the high quality products directly on the platform or app and the manufacturer receives the order and ships the product directly to the consumer. The food manufacturers can bring in new products and provide more nutrition, pedigree attributes or other information on each of their products. The more that information is available for the consumer, the better the score. And the higher the probability that the consumer will purchase the product. The platform also has the capability for setting up recurring orders and subscriptions.</p>
                     </div>

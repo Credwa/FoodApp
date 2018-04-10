@@ -760,7 +760,7 @@
         <div class="grid-x grid-padding-x">
           <div class="cell xlarge-10 xlarge-offset-1">
             <h2>Newsletter Sign&nbsp;Up</h2>
-            <p>You&rsquo;ll be the first to know about sales, specials, new products, and the latest FoodUniverse news!</p>
+            <p>You&rsquo;ll be the first to know about sales, specials, new products, and the latest EverythingFood news!</p>
             <div class="input-group input-group-rounded">
               <input class="input-group-field" type="email" placeholder="Email Address">
               <div class="input-group-button">
@@ -958,7 +958,7 @@
           </div>
         </div>
       </div>
-      <p class="text-center copyright"><small>&copy;2018 FoodUniverse, Inc. All rights reserved.</small></p>
+      <p class="text-center copyright"><small>&copy;2018 EverythingFood, Inc. All rights reserved.</small></p>
     </footer>
 
 

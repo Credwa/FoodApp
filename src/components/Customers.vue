@@ -28,7 +28,7 @@
                             <h2>Our Customers</h2>
                             <h4 class="line-bottom subtitle cursive">Interested in Healthy Lifestyle?</h4>
                         </div>
-                        <p>FoodUniverse is an app for health-conscious consumers who are interested in sourcing healthy food, learning about the food origins and connecting with high quality food producers. We help consumers make better food choices. We empower the users to make mindful decisions about their food, set their own food quality standards and improve their health.</p>
+                        <p>EverythingFood is an app for health-conscious consumers who are interested in sourcing healthy food, learning about the food origins and connecting with high quality food producers. We help consumers make better food choices. We empower the users to make mindful decisions about their food, set their own food quality standards and improve their health.</p>
 
                         <p>We provide the users with time-saving tools for comprehensive food scoring, managing their pantry items, scheduling food deliveries, establishing meal calendars as well as managing their recipes and food related tasks in their households.</p>
                     </div>

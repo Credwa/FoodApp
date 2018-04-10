@@ -702,7 +702,7 @@
         <div class="grid-x grid-padding-x">
           <div class="cell xlarge-10 xlarge-offset-1">
             <h2>Newsletter Sign&nbsp;Up</h2>
-            <p>You&rsquo;ll be the first to know about sales, specials, new products, and the latest FoodUniverse news!</p>
+            <p>You&rsquo;ll be the first to know about sales, specials, new products, and the latest EverythingFood news!</p>
             <div class="input-group input-group-rounded">
               <input class="input-group-field" type="email" placeholder="Email Address">
               <div class="input-group-button">

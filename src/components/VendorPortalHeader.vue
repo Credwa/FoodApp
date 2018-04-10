@@ -49,7 +49,7 @@
                         </div>
                         <div class="cell small-8 smedium-4 medium-4 text-center">
                             <a href="/vendorportal" id="logo-link">
-                                <span class="show-for-sr" aria-hidden="true">FoodUniverse</span>
+                                <span class="show-for-sr" aria-hidden="true">EverythingFood</span>
                                 <span class="new-logo"></span>
                             </a>
                         </div>

@@ -10,7 +10,7 @@
                             </small>
                         </p>
                         <p>
-                            <small>&copy; 2018 FoodUniverse, Inc. All Rights Reserved.</small>
+                            <small>&copy; 2018 EverythingFood, Inc. All Rights Reserved.</small>
                         </p>
                     </div>
                 </div>
