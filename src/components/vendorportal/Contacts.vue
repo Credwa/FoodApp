@@ -67,7 +67,7 @@
 								<label>Lastname</label>
 							</div>
 							<div class="form-floating-label">
-								<input type="text" name="ZEmailAddress" required v-model="contact.emailaddress" disabled/>
+								<input type="text" name="ZEmailAddress" required v-model="contact.emailaddress"/>
 								<label>EmailAddress</label>
 							</div>
 							<div class="form-floating-label">
@@ -114,6 +114,10 @@
 								<input type="text" name="ZContactBio"  v-model="contact.contactbio" />
 								<label>Bio</label>
 							</div>
+							<div class="form-floating-label text-center small-12 smedium-2 medium-2">
+							<button @click.prevent class="button" @click="createNewUser">Create User from contact</button>
+							</div>
+
 
 							<p class="text-center">
 								<button class="button muted" data-close aria-label="Close reveal">Update</button>
@@ -133,254 +137,283 @@
 
 <script>
 // Library components.
-import axios from "axios";
-import { mapState } from "vuex";
-import VueFrame from 'vue-frame'
+import axios from 'axios';
+import { mapState } from 'vuex';
+import VueFrame from 'vue-frame';
 // Custom components.
-import router from "../../router";
+import router from '../../router';
 
 export default {
-	name: "Contacts",
-	props: ["selecttab", "ZNavKey", "VendorZNavKey"],
-	components: { VueFrame },
+  name: 'Contacts',
+  props: ['selecttab', 'ZNavKey', 'VendorZNavKey'],
+  components: { VueFrame },
 
-	data() {
-		return {
-			// ZNavKey: 'CE89FE19-8B65-4A2C-AEC5-59B40B8153C1',
-			loading: false,
-			contacts: [],
-			token: "",
-			contact: "",
-			showContactModal: false,
-			showFrame: false
-		};
-	},
-	mounted: function() {
-        this.fetch();
+  data() {
+    return {
+      // ZNavKey: 'CE89FE19-8B65-4A2C-AEC5-59B40B8153C1',
+      loading: false,
+      contacts: [],
+      token: '',
+      contact: '',
+      showContactModal: false,
+      showFrame: false
+    };
+  },
+  mounted: function() {
+    this.fetch();
+  },
+  watch: {
+    VendorZNavKey: function() {
+      this.fetch();
+    }
+  },
+  methods: {
+    createNewUser() {
+      axios
+        .post(process.env.API_URL + '/SP-GenerateUser-FromContact', {
+          ZContactID: this.contact.contactid,
+        })
+        .then(response => {
+					console.log("New User" ,response.data)
+          this.$toastr.Add({
+            title: 'Success', // Toast Title
+            msg: 'New User Created Successfully', // Message
+            position: 'toast-top-center', // Toast Position.
+            type: 'success', // Toast type,
+            preventDuplicates: true //Default is false
+          });
+        })
+        .catch(e => {
+          this.$toastr.Add({
+            title: 'Failed', // Toast Title
+            msg: 'Unable to create new user', // Message
+            position: 'toast-top-center', // Toast Position.
+            type: 'error', // Toast type,
+            preventDuplicates: true //Default is false
+          });
+        });
     },
-	watch: {
-        VendorZNavKey: function(){
-            this.fetch()
+    search(srhtext = '') {
+      // alert('Home : ' + srhtext)
+      //router.push({ name: 'vendorsearch', params: { srhtext: 'srhtext' }})
+
+      router.push({ path: `/SearchResults` }); // -> /user/123
+      //router.push({ path: '/vendorsearch/'+srhtext }) // -> /user/123
+    },
+    fetch() {
+      // if (this.loading) return;
+      // this.ZNavKey = this.$route.params.ZNavKey
+      //Get token.
+      var config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
         }
+      };
+
+      this.loading = true;
+
+      var config1 = {
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Authorization': "bearer " + this.token
+        }
+      };
+
+      axios
+        .post(process.env.API_URL + '/VendorPage-Contacts-List', {
+          ZNavKey: this.VendorZNavKey,
+          config1
+        })
+        .then(response => {
+          console.log('Contacts list', response.data);
+          if (response.data.items) {
+            this.contacts = response.data.items;
+          } else {
+            this.$set(this.contacts, 0, response.data.item);
+          }
+          this.loading = false;
+        });
     },
-	methods: {
-		search(srhtext = "") {
-		// alert('Home : ' + srhtext)
-		//router.push({ name: 'vendorsearch', params: { srhtext: 'srhtext' }})
+    editContact: function(index) {
+      this.showContactModal = true;
+      this.contact = this.contacts[index];
+      this.contact.index = index;
+      console.log(index);
+    },
+    addContact: function(last_index) {
+      console.log(last_index);
+      this.contact = {};
+      this.contact.last_index = last_index;
+      this.showContactModal = true;
+    },
+    ondelete: function() {
+      if (!this.contact.contactid) {
+        return;
+      }
+      if (event) event.preventDefault();
 
-		router.push({ path: `/SearchResults` }); // -> /user/123
-		//router.push({ path: '/vendorsearch/'+srhtext }) // -> /user/123
-		},
-		fetch() {
-			// if (this.loading) return;
-			// this.ZNavKey = this.$route.params.ZNavKey
-			//Get token.
-			var config = {
-				headers: {
-					"Content-Type": "application/x-www-form-urlencoded"
-				}
-			};
+      let options = {
+        loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
+        okText: 'Continue',
+        cancelText: 'Close',
+        animation: 'zoom', // Available: "zoom", "bounce", "fade"
+        type: 'basic' // coming soon: 'soft', 'hard'
+      };
+      this.$dialog
+        .confirm('Are you sure to delete this product?', {
+          loader: true // default: false - when set to true, the proceed button shows a loader when clicked.
+          // And a dialog object will be passed to the then() callback
+        })
+        .then(dialog => {
+          // Triggered when proceed button is clicked
+          // do some stuff like ajax request.
+          console.log('Clicked on delete');
+          var config1 = {
+            headers: {
+              'Content-Type': 'application/json'
+              // 'Authorization': "bearer " + this.token
+            }
+          };
+          axios
+            .post(process.env.API_URL + '/ContactPage-Contact-Delete', {
+              ZNavKey: this.VendorZNavKey,
+              ZContactID: this.contact.contactid,
+              config1
+            })
+            .then(response => {
+              console.log('deleted index', this.contact.index);
 
-			this.loading = true;
+              this.contacts.splice(this.contact.index, 1);
+              dialog.close();
+              this.showContactModal = false;
+              this.contact = {};
 
-			var config1 = {
-				headers: {
-					"Content-Type": "application/json"
-					// 'Authorization': "bearer " + this.token
-				}
-			};
-
-			axios.post(process.env.API_URL + "/VendorPage-Contacts-List", {
-				ZNavKey: this.VendorZNavKey,
-				config1
-			}).then(response => {
-				console.log("first fetch", response.data);
-				if (response.data.items) {
-					this.contacts = response.data.items;
-				} else {
-					this.$set(this.contacts, 0, response.data.item)
-				}
-				this.loading = false
-			});
-		},
-		editContact: function(index) {
-			this.showContactModal = true;
-			this.contact = this.contacts[index];
-			this.contact.index = index
-			console.log(index);
-		},
-		addContact: function(last_index) {
-			console.log(last_index);
-			this.contact = {};
-			this.contact.last_index = last_index;
-			this.showContactModal = true;
-		},
-		ondelete: function() {
-			if (!this.contact.contactid) {
-				return;
-			}
-			if (event) event.preventDefault()
-
-
-			let options = {
-				loader: true, // set to true if you want the dailog to show a loader after click on "proceed"
-				okText: 'Continue',
-				cancelText: 'Close',
-				animation: 'zoom', // Available: "zoom", "bounce", "fade"
-				type: 'basic', // coming soon: 'soft', 'hard'
-			};
-			this.$dialog.confirm('Are you sure to delete this product?', {
-				loader: true // default: false - when set to true, the proceed button shows a loader when clicked.
-							// And a dialog object will be passed to the then() callback
-			})
-			.then((dialog) => {
-				// Triggered when proceed button is clicked
-				// do some stuff like ajax request.
-				console.log('Clicked on delete')
-				var config1 = {
-					headers: {
-						"Content-Type": "application/json"
-						// 'Authorization': "bearer " + this.token
-					}
-				};
-				axios.post(process.env.API_URL + "/ContactPage-Contact-Delete", {
-					ZNavKey: this.VendorZNavKey,
-					ZContactID: this.contact.contactid,
-					config1
-				}).then(response => {
-					console.log("deleted index", this.contact.index);
-
-					this.contacts.splice(this.contact.index, 1)
-					dialog.close()
-					this.showContactModal = false
-					this.contact = {}
-
-					this.$toastr.Add({
-						title: "Success", // Toast Title
-						msg: "Deleted current Contact successfully", // Message
-						position: "toast-top-center", // Toast Position.
-						type: "success", // Toast type,
-						preventDuplicates: true //Default is false
-					});
-				}).catch(e => {
-					console.log(e)
-				})
-
-			})
-			.catch(function () {
-				console.log('Clicked on cancel')
-			});
-
-
-		},
-		onupdatecontactinfo: function() {
-			if (!this.contact.contactid) {
-				this.onaddcontact();
-				return;
-			}
-			var config1 = {
-				headers: {
-				"Content-Type": "application/json"
-				// 'Authorization': "bearer " + this.token
-			}
-		};
-		axios.post(process.env.API_URL + "/ContactPage-Contact-Update", {
-			ZNavKey: this.VendorZNavKey,
-			ZFirstName: this.contact.firstname,
-			ZLastName: this.contact.lastname,
-			ZContactTitle: this.contact.contacttitle || "",
-			ZEmailAddress: this.contact.emailaddress,
-			ZStreet: this.contact.street || "",
-			ZStreet2: this.contact.street2 || "",
-			ZCity: this.contact.city || "",
-			ZStateDesc1: this.contact.statedesc1 || "",
-			ZZipCodeDesc1: this.contact.zipcodedesc1 || "",
-			ZImageFilePath: this.contact.imagefilepath || "",
-			ZCountryDesc1: this.contact.countrydesc1 || "",
-			ZCellPhone: this.contact.cellphone || "",
-			ZBirthday: this.contact.dateofbirth || "",
-			ZSex: this.contact.sex || "",
-			ZContactBio: this.contact.contactbio || "",
-			ZContactID: this.contact.contactid
-		}).then(response => {
-			console.log(response.data);
-			if (!response.data.HasError) {
-				this.showContactModal = false;
-				this.$toastr.Add({
-					title: "Success", // Toast Title
-					msg: "Updated Contact information successfully", // Message
-					position: "toast-top-center", // Toast Position.
-					type: "success", // Toast type,
-					preventDuplicates: true //Default is false
-				});
-			} else {
-				this.$toastr.Add({
-					title: "Failed update", // Toast Title
-					msg: response.data.ErrorMessage, // Message
-					position: "toast-top-center", // Toast Position.
-					type: "error", // Toast type,
-					// progressBarValue: 0,
-					preventDuplicates: true //Default is false
-				});
-			}
-			});
-		},
-		onaddcontact: function() {
-			var config1 = {
-				headers: {
-					"Content-Type": "application/json"
-					// 'Authorization': "bearer " + this.token
-				}
-			};
-			axios
-			.post(process.env.API_URL + "/ContactPage-Contact-Insert", {
-				ZNavKey: this.VendorZNavKey,
-				ZFirstName: this.contact.firstname,
-				ZLastName: this.contact.lastname,
-				ZContactTitle: this.contact.contacttitle || "",
-				ZEmailAddress: this.contact.emailaddress,
-				ZStreet: this.contact.street || "",
-				ZStreet2: this.contact.street2 || "",
-				ZCity: this.contact.city || "",
-				ZStateDesc1: this.contact.statedesc1 || "",
-				ZZipCodeDesc1: this.contact.zipcodedesc1 || "",
-				ZImageFilePath: this.contact.imagefilepath || "",
-				ZCountryDesc1: this.contact.countrydesc1 || "",
-				ZCellPhone: this.contact.cellphone || "",
-				ZDateOfBirth: this.contact.dateofbirth || "",
-				ZSex: this.contact.sex || "",
-				ZContactBio: this.contact.contactbio || "",
-				ZCompanyID: this.contacts[0].companyid || ""
-			})
-			.then(response => {
-			console.log(response.data);
-			if (!response.data.HasError) {
-				this.showContactModal = false;
-				this.$toastr.Add({
-				title: "Success", // Toast Title
-				msg: "Updated Contact information successfully", // Message
-				position: "toast-top-center", // Toast Position.
-				type: "success", // Toast type,
-				preventDuplicates: true //Default is false
-				});
-				this.contact.fullname =
-				this.contact.firstname + " " + this.contact.lastname;
-				this.contacts[this.contact.last_index] = this.contact;
-				console.log("added", this.contact);
-				console.log(response);
-			} else {
-				this.$toastr.Add({
-				title: "Failed update", // Toast Title
-				msg: response.data.ErrorMessage, // Message
-				position: "toast-top-center", // Toast Position.
-				type: "error", // Toast type,
-				// progressBarValue: 0,
-				preventDuplicates: true //Default is false
-				});
-			}
-			});
-		}
-	}
+              this.$toastr.Add({
+                title: 'Success', // Toast Title
+                msg: 'Deleted current Contact successfully', // Message
+                position: 'toast-top-center', // Toast Position.
+                type: 'success', // Toast type,
+                preventDuplicates: true //Default is false
+              });
+            })
+            .catch(e => {
+              console.log(e);
+            });
+        })
+        .catch(function() {
+          console.log('Clicked on cancel');
+        });
+    },
+    onupdatecontactinfo: function() {
+      if (!this.contact.contactid) {
+        this.onaddcontact();
+        return;
+      }
+      var config1 = {
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Authorization': "bearer " + this.token
+        }
+      };
+      axios
+        .post(process.env.API_URL + '/ContactPage-Contact-Update', {
+          ZNavKey: this.VendorZNavKey,
+          ZFirstName: this.contact.firstname,
+          ZLastName: this.contact.lastname,
+          ZContactTitle: this.contact.contacttitle || '',
+          ZEmailAddress: this.contact.emailaddress,
+          ZStreet: this.contact.street || '',
+          ZStreet2: this.contact.street2 || '',
+          ZCity: this.contact.city || '',
+          ZStateDesc1: this.contact.statedesc1 || '',
+          ZZipCodeDesc1: this.contact.zipcodedesc1 || '',
+          ZImageFilePath: this.contact.imagefilepath || '',
+          ZCountryDesc1: this.contact.countrydesc1 || '',
+          ZCellPhone: this.contact.cellphone || '',
+          ZBirthday: this.contact.dateofbirth || '',
+          ZSex: this.contact.sex || '',
+          ZContactBio: this.contact.contactbio || '',
+          ZContactID: this.contact.contactid
+        })
+        .then(response => {
+          console.log(response.data);
+          if (!response.data.HasError) {
+            this.showContactModal = false;
+            this.$toastr.Add({
+              title: 'Success', // Toast Title
+              msg: 'Updated Contact information successfully', // Message
+              position: 'toast-top-center', // Toast Position.
+              type: 'success', // Toast type,
+              preventDuplicates: true //Default is false
+            });
+          } else {
+            this.$toastr.Add({
+              title: 'Failed update', // Toast Title
+              msg: response.data.ErrorMessage, // Message
+              position: 'toast-top-center', // Toast Position.
+              type: 'error', // Toast type,
+              // progressBarValue: 0,
+              preventDuplicates: true //Default is false
+            });
+          }
+        });
+    },
+    onaddcontact: function() {
+      var config1 = {
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Authorization': "bearer " + this.token
+        }
+      };
+      axios
+        .post(process.env.API_URL + '/ContactPage-Contact-Insert', {
+          ZNavKey: this.VendorZNavKey,
+          ZFirstName: this.contact.firstname,
+          ZLastName: this.contact.lastname,
+          ZContactTitle: this.contact.contacttitle || '',
+          ZEmailAddress: this.contact.emailaddress,
+          ZStreet: this.contact.street || '',
+          ZStreet2: this.contact.street2 || '',
+          ZCity: this.contact.city || '',
+          ZStateDesc1: this.contact.statedesc1 || '',
+          ZZipCodeDesc1: this.contact.zipcodedesc1 || '',
+          ZImageFilePath: this.contact.imagefilepath || '',
+          ZCountryDesc1: this.contact.countrydesc1 || '',
+          ZCellPhone: this.contact.cellphone || '',
+          ZDateOfBirth: this.contact.dateofbirth || '',
+          ZSex: this.contact.sex || '',
+          ZContactBio: this.contact.contactbio || '',
+          ZCompanyID: this.contacts[0].companyid || ''
+        })
+        .then(response => {
+          console.log(response.data);
+          if (!response.data.HasError) {
+            this.showContactModal = false;
+            this.$toastr.Add({
+              title: 'Success', // Toast Title
+              msg: 'Updated Contact information successfully', // Message
+              position: 'toast-top-center', // Toast Position.
+              type: 'success', // Toast type,
+              preventDuplicates: true //Default is false
+            });
+            this.contact.fullname =
+              this.contact.firstname + ' ' + this.contact.lastname;
+            this.contacts[this.contact.last_index] = this.contact;
+            console.log('added', this.contact);
+            console.log(response);
+          } else {
+            this.$toastr.Add({
+              title: 'Failed update', // Toast Title
+              msg: response.data.ErrorMessage, // Message
+              position: 'toast-top-center', // Toast Position.
+              type: 'error', // Toast type,
+              // progressBarValue: 0,
+              preventDuplicates: true //Default is false
+            });
+          }
+        });
+    }
+  }
 };
 </script>
 
@@ -405,6 +438,6 @@ div.modal-mask::-webkit-scrollbar {
 }
 
 .reveal-overlay::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 </style>

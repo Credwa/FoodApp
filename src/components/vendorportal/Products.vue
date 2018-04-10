@@ -3,7 +3,7 @@
         v-if="selecttab"
         v-bind:class="{'is-active' : selecttab}"
     >
-        <div v-show="visible">
+        <div>
             <header class="grid-container">
                 <div class="grid-x grid-padding-x">
                     <div class="cell small-12">
@@ -316,6 +316,9 @@ export default {
     this.fetch();
   },
   computed: {
+    showNewButton() {
+        // console.log(typeof this.products)
+    },
     getNewDetail(desc, qty) {
       let newString = '';
       let temp = desc.split(' ');
@@ -561,6 +564,7 @@ export default {
           ZVendorID: this.vendor.vendorid
         })
         .then(response => {
+          console.log(response);
           this.newLoading = false;
           this.fetch();
         })
