@@ -14,7 +14,8 @@ import VueAuthenticate from 'vue-authenticate'
 import axios from 'axios';
 import VuejsDialog from "vuejs-dialog"
 import {Tabs, Tab} from 'vue-tabs-component';
-
+import VuePaginate from 'vue-paginate'
+Vue.use(VuePaginate)
 Vue.config.productionTip = false
 Vue.use(VueCarousel)
 Vue.use(Toastr);

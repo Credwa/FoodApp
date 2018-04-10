@@ -20,51 +20,57 @@
                 </div>
             </header>
             <main id="search-results-grid">
+                                <div class="grid-container">
+                                    <div class="grid-x grid-padding-x">
+                                        <div class="cell small-12 smedium-6 medium-4 xlarge-3" v-for="(product, index) in paginated('languages')" v-bind:key="product.vendorfooditemid" @click="editProduct(index)">
+                                            <!-- <router-link :to="'/fooditem/'+fooditem.vendorfooditemid"> -->
+                                                <a class="results-card">
 
-                <div class="grid-container">
-                    <div class="grid-x grid-padding-x">
+                                                    <div class="grid-x grid-margin-x">
+                                                        <div class="card-img cell small-6 smedium-12 medium-12 align-self-top">
+                                                            <img :src="product.imagefilepath" alt="" />
+                                                            <button :class="'score-badge '+product.abbdefdesc1.toLowerCase()">{{product.abbscore}} </button>
+                                                            <button class="button secondary button-add-cart show-for-smedium"><i class="fas fa-search" ></i>Edit</button>
 
-
-                        <!--BEGIN LOOP of API ARRAY: VendorPortal-FoodItemLists-->
-
-                        <div class="cell small-12 smedium-6 medium-4 xlarge-3" v-for="(product, index) in products" v-bind:key="product.vendorfooditemid" @click="editProduct(index)">
-                            <!-- <router-link :to="'/fooditem/'+fooditem.vendorfooditemid"> -->
-                                <a class="results-card" href="#">
-
-                                    <div class="grid-x grid-margin-x">
-                                        <div class="card-img cell small-6 smedium-12 medium-12 align-self-top">
-                                            <img :src="product.imagefilepath" alt="" />
-                                            <button :class="'score-badge '+product.abbdefdesc1.toLowerCase()">{{product.abbscore}} </button>
-                                            <button class="button secondary button-add-cart show-for-smedium"><i class="fas fa-search" ></i>Edit</button>
-
-                                        </div>
-                                        <div class="card-info cell small-6 smedium-12 medium-12">
-                                            <div class="ratings">
-                                                <div class="empty-stars"></div>
-                                                <div class="full-stars" style="width:#VendorSearch-Vendors.UserRatingPerc#%;"></div>
+                                                        </div>
+                                                        <div class="card-info cell small-6 smedium-12 medium-12">
+                                                            <div class="ratings">
+                                                                <div class="empty-stars"></div>
+                                                                <div class="full-stars" style="width:#VendorSearch-Vendors.UserRatingPerc#%;"></div>
+                                                            </div>
+                                                            <small class="subtitle">{{product.vendordesc1}}</small>
+                                                            <big class="fooditem-name">
+                                                                <strong>{{product.desc1}}</strong>
+                                                            </big>
+                                                            <span class="h4 fooditem-price">${{product.unitcost?(product.unitcost).toFixed(2):''}}</span>
+                                                            <small class="fooditem-units">
+                                                                <span v-if="product.priceuomdesc1.split(' ')[0] === 'per'">
+                                                                    {{product.priceuomdesc1.split(" ")[0] + " "}}
+                                                                    {{product.priceqty ? product.priceqty : 1}}
+                                                                    {{" " + product.priceuomdesc1.split(" ")[1]}}
+                                                                </span>
+                                                                <span v-else>{{product.priceuomdesc1}}</span>
+                                                            </small>
+                                                            <button class="button secondary hide-for-smedium">GO</button>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                <!-- </router-link> -->
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <small class="subtitle">{{product.vendordesc1}}</small>
-                                            <big class="fooditem-name">
-                                                <strong>{{product.desc1}}</strong>
-                                            </big>
-                                            <span class="h4 fooditem-price">${{product.unitcost?(product.unitcost).toFixed(2):''}}</span>
-                                            <small class="fooditem-units">{{product.priceuomdesc1}}</small>
-                                            <button class="button secondary hide-for-smedium">GO</button>
-                                        </div>
-                                    </div>
-                                </a>
-                            <!-- </router-link> -->
-                        </div>
-
-                        <!--END API ARRAY LOOP-->
-
-                    </div>
-                </div>
                 <div class="grid-container">
                     <div class="search-pagination text-center">
-                        <div class="pagination" v-show="pagecount > 1">
-                            <paginate :page-count="pagecount" :page-range="5" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination'" :page-class="'page-item'" :click-handler="setpagenum">
+                        <div class="pagination">
+                            <!-- <paginate ref="paginate" :page-count="pagecount" :page-range="5" :prev-text="'Prev'" :next-text="'Next'" :container-class="'pagination'" :page-class="'page-item'" :click-handler="setpagenum">
+                            </paginate> -->
+                            <paginate
+                            name="languages"
+                            :list="products"
+                            :per="24"
+                            >
                             </paginate>
+                            <paginate-links for="languages" :async="true"></paginate-links>
                         </div>
                     </div>
                 </div>
@@ -81,7 +87,7 @@
                                 <div class="center-pic-upload">
                                     <img class="click-to-upload text-center line-eft-right" v-if="product.imagefilepath" :src="product.imagefilepath" height="30px" width="250px" alt="Click to upload contact picture"/>
                                     <div id="vue-frame" @click="showFrame = !showFrame">
-                                    <vue-frame v-on:submit.prevent class="click-to-upload text-center line-eft-right" text="Click to upload product picture" :url="'http://staging.fooduniverse.com/image-Upload-FoodItem.cfm?ZScopeDesc1=FoodItems&ZPKID=' + product.fooditemid" frame="myframe" type="a"></vue-frame>
+                                    <vue-frame v-on:submit.prevent class="click-to-upload text-center line-eft-right" text="Click to upload product picture" :url="'http://staging.everythingfood.com/image-Upload-FoodItem.cfm?ZScopeDesc1=FoodItems&ZPKID=' + product.fooditemid" frame="myframe" type="a"></vue-frame>
                                     <br />
                                     <iframe scrolling="no" class="upload-iframe" id="myframe" width="80%" height="100px" :hidden="!showFrame"></iframe>
                                     </div>
@@ -139,15 +145,18 @@
                                     <div class="cell small-12 smedium-2 medium-2">
                                         <input type="text" name="unitcost" v-model="productDetails.unitcost" />
                                     </div>
-                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Price Per</div>
+                                    <div class="cell small-12 smedium-1 medium-1 user-info-label">Per</div>
+                                    <div class="cell small-12 smedium-2 medium-2">
+                                        <input type="text" name="priceQty" v-model="productDetails.priceqty" value="1" placeholder="Qty"/>
+                                    </div>
                                         <div class="cell small-12 smedium-2 medium-2">
                                             <select name="ZServingSizeUOMID" v-model="productDetails.priceuomid">
                                                 <option value="">Choose</option>
                                                 <option v-for="priceuom in priceUOMIDlist" :key="priceuom.uomid" :value="priceuom.uomid">{{priceuom.desc1}}</option>
                                             </select>
                                         </div>
-                                    <div class="cell small-12 smedium-2 medium-2 user-info-label">Retail Price</div>
-                                    <div class="cell small-12 smedium-2 medium-2">
+                                    <div class="cell small-12 smedium-1 medium-1 user-info-label">Retail Price</div>
+                                    <div class="cell small-12 smedium-1 medium-1">
                                         <p>{{productDetails.unitprice}}</p>
                                     </div>
                                 </div>
@@ -262,7 +271,8 @@
 <script>
 // Library components.
 import axios from 'axios';
-import Paginate from 'vuejs-paginate';
+// import Paginate from 'vuejs-paginate';
+import VuePaginate from 'vue-paginate';
 import VueFrame from 'vue-frame';
 import Spinner from 'vue-simple-spinner';
 // Custom components.
@@ -273,9 +283,10 @@ export default {
   name: 'Products',
   props: ['selecttab', 'ZNavKey', 'VendorZNavKey'],
   components: {
-    Paginate,
+    // Paginate,
     VueFrame,
-    Spinner
+    Spinner,
+    VuePaginate
   },
 
   data() {
@@ -286,7 +297,7 @@ export default {
       product: {},
       productDetails: {},
       currentpage: 1,
-      countperpage: 24,
+      countperpage: 33,
       pagecount: 1,
       visible: false,
       loading: false,
@@ -296,13 +307,24 @@ export default {
       statusDefIDList: [],
       newLoading: false,
       vendor: '',
-      showFrame: false
+      showFrame: false,
+      langs: ['JavaScript', 'PHP', 'HTML', 'CSS', 'Ruby', 'Python', 'Erlang'],
+      paginate: ['languages']
     };
   },
   mounted: function() {
     this.fetch();
   },
-  computed: {},
+  computed: {
+    getNewDetail(desc, qty) {
+      let newString = '';
+      let temp = desc.split(' ');
+      if (temp[0] === 'per') {
+        newString = temp[0] + ' ' + qty + ' ' + temp[1];
+      }
+      return newString;
+    }
+  },
   watch: {
     VendorZNavKey: function() {
       this.fetch();
@@ -347,12 +369,8 @@ export default {
                 //if All is selected
                 this.pagecount = 1;
               } else {
-                this.pagecount = Math.round(
+                this.pagecount = Math.ceil(
                   (this.products.length + 1) / this.countperpage
-                );
-                this.products = this.products.slice(
-                  (this.currentpage - 1) * this.countperpage,
-                  this.currentpage * this.countperpage
                 );
               }
             }
@@ -452,8 +470,9 @@ export default {
             ZHeightQty: this.productDetails.heightqty,
             ZWidthQty: this.productDetails.widthqty,
             ZLengthQty: this.productDetails.lengthqty,
-            ZWeightQty: this.productDetails.weightqty
-
+            ZWeightQty: this.productDetails.weightqty,
+            ZPriceQty: this.productDetails.priceqty,
+            ZStatusDefID: this.productDetails.statusdefid
           }
         )
         .then(response => {
@@ -569,10 +588,26 @@ export default {
           console.log(response.data.item);
           //   this.$set(this.productDetails, this.productDetails, response.data.item);
           this.productDetails = response.data.item;
-          this.productDetails.heightqty = this.productDetails.heightqty === 0 ? null : this.productDetails.heightqty;
-          this.productDetails.widthqty = this.productDetails.widthqty === 0 ? null : this.productDetails.widthqty;
-          this.productDetails.weightqty = this.productDetails.weightqty === 0 ? null : this.productDetails.weightqty
-          this.productDetails.lengthqty = this.productDetails.lengthqty === 0 ? null : this.productDetails.lengthqty
+          this.productDetails.heightqty =
+            this.productDetails.heightqty === 0
+              ? null
+              : this.productDetails.heightqty;
+          this.productDetails.widthqty =
+            this.productDetails.widthqty === 0
+              ? null
+              : this.productDetails.widthqty;
+          this.productDetails.weightqty =
+            this.productDetails.weightqty === 0
+              ? null
+              : this.productDetails.weightqty;
+          this.productDetails.lengthqty =
+            this.productDetails.lengthqty === 0
+              ? null
+              : this.productDetails.lengthqty;
+          this.productDetails.priceqty =
+            this.productDetails.priceqty === null
+              ? 1
+              : this.productDetails.priceqty;
           if (!response.data.HasError) {
           } else {
             this.$toastr.Add({
@@ -596,7 +631,10 @@ export default {
       this.showProductModal = true;
     },
     setpagenum: function(pagenum) {
-      this.currentpage = pagenum;
+      //   this.currentpage = pagenum;
+      console.log(this.$refs.paginate);
+      console.log(pagenum);
+      this.$refs.paginate.selected = pagenum;
     },
     GoVendor: function(ZNavKey) {
       this.$store.commit('setZNavKey', ZNavKey);
@@ -639,6 +677,6 @@ export default {
 }
 
 .score-badge {
-    background-image: none !important
+  background-image: none !important;
 }
 </style>

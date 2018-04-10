@@ -6,7 +6,7 @@
                   <div class="center-pic-upload">
                     <img class="click-to-upload text-center line-eft-right" v-if="companyaddress.logoimagefilepath" :src="companyaddress.logoimagefilepath" height="30px" width="250px" alt="Click to upload contact picture"/>
                     <div id="vue-frame" @click="showFrame = !showFrame;">
-                      <vue-frame  v-on:submit.prevent class="click-to-upload text-center line-eft-right" text="Click to upload company logo" :url="'http://staging.fooduniverse.com/Image-Upload-CompanyLogo.cfm?ZScopeDesc1=Companies&ZPKID=' + companyaddress.companyid" frame="myframe" type="a"></vue-frame>
+                      <vue-frame  v-on:submit.prevent class="click-to-upload text-center line-eft-right" text="Click to upload company logo" :url="'http://staging.everythingfood.com/Image-Upload-CompanyLogo.cfm?ZScopeDesc1=Companies&ZPKID=' + companyaddress.companyid" frame="myframe" type="a"></vue-frame>
                       <br />
                       <iframe scrolling="no" class="upload-iframe" id="myframe" width="80%" height="100px" :hidden="!showFrame"></iframe>
                     </div>
@@ -56,7 +56,7 @@
                             <label>Email</label>
                         </div>
                         <div class="form-floating-label">
-                            <textarea name="ZNoteDesc1" v-model="companyaddress.vendormessagetitletext"></textarea>
+                            <textarea name="ZNoteDesc1" v-model="companyaddress.notedesc1"></textarea>
                             <label>Note</label>
                         </div>
                     </div>
@@ -181,7 +181,6 @@ export default {
       axios
         .post(process.env.API_URL + '/VendorPage-Company-Address-Update', {
           ZDesc1: this.companyaddress.desc1,
-          ZAttentionDesc1: this.companyaddress.desc1,
           ZStreet: this.companyaddress.street,
           ZStreet2: this.companyaddress.street2,
           ZCity: this.companyaddress.city,
@@ -192,7 +191,6 @@ export default {
           ZWebAddress: this.companyaddress.webaddress,
           ZPhoneNumber: this.companyaddress.phonenumber,
           ZEmailAddress: this.companyaddress.emailaddress,
-          ZLogoImageFilePath: this.companyaddress.logoimagefilepath,
           ZCompanyID: this.companyaddress.companyid
         })
         .then(response => {

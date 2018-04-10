@@ -848,7 +848,7 @@ export default {
 
           axios({
             method: 'post',
-            url: 'http://ab.fooduniverse.com/service/token',
+            url: 'http://ab.everythingfood.com/service/token',
             data: data_string,
             config
           })
