@@ -45,7 +45,7 @@
         <!-- END OF Sign In-->
 
         <!-- Common Footer Begin  -->
-        <CommonFooter class="remodal-footer"></CommonFooter>
+        <CommonFooter class="remodal-footer agreement-footer"></CommonFooter>
         <!-- End Common Footer  -->
         </div>
     </div>
@@ -174,6 +174,12 @@ export default {
 
 #sign-in {
   height: 70vh;
+}
+
+.agreement-footer {
+  bottom: 0 !important;
+  display: fixed !important;
+  z-index: -1000 !important
 }
 
 .remodal-footer {

@@ -31,7 +31,7 @@
         <!-- END OF Sign In-->
 
         <!-- Common Footer Begin  -->
-        <CommonFooter class="remodal-footer"></CommonFooter>
+        <CommonFooter class="remodal-footer agreement-footer"></CommonFooter>
         <!-- End Common Footer  -->
         </div>
     </div>
@@ -133,11 +133,19 @@ export default {
   background-repeat: no-repeat;
 }
 
+.agreement-footer {
+  bottom: 0 !important;
+  display: fixed !important;
+  z-index: -1000 !important
+}
+
 #sign-in {
-  height: 90vh;
+  height:110vh;
+  display: relative !important
 }
 .pdf {
-  margin-left: -15%
+  margin-left: -15%;
+  max-height: 80vh;
 }
 
 .downloadpdf {
